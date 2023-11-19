@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Formulario de Notas</h1>
+
+    <div id="formularioEjercicio1">
+        <form id="formEjercicio1" action="/ejercicio1" method="post" onsubmit="return enviarFormulario()">
+            <!-- Campos del formulario -->
+            <label for="nota1">Nota 1:</label>
+            <input type="number" id="nota1" name="nota1" min="10" max="70" required><br>
+
+            <label for="nota2">Nota 2:</label>
+            <input type="number" id="nota2" name="nota2" min="10" max="70" required><br>
+
+            <label for="nota3">Nota 3:</label>
+            <input type="number" id="nota3" name="nota3" min="10" max="70" required><br>
+
+            <label for="asistencia">Asistencia (%):</label>
+            <input type="number" id="asistencia" name="asistencia" min="0" max="100" required><br>
+
+            <button type="submit">Enviar</button>
+
+        </form>
+    </div>
+
+    <div id="resultado" style="display: none;">
+        <h2>Resultado</h2>
+        <p>Promedio: <span id="promedio"></span></p>
+        <p>Estado: <span id="estado"></span></p>
+
+        <button onclick="volverAlMenu()">volver Al Menu</button>
+        <button onclick="agregarNuevasNotas()">Agregar Nuevas Notas</button>
+    </div>
+
+    <script>
+        function enviarFormulario() {
+
+            var nota1 = parseInt(document.getElementById('nota1').value);
+            var nota2 = parseInt(document.getElementById('nota2').value);
+            var nota3 = parseInt(document.getElementById('nota3').value);
+            var asistencia = parseInt(document.getElementById('asistencia').value);
+
+
+            var promedio = (nota1 + nota2 + nota3) / 3;
+
+
+            var estado = promedio >= 40 && asistencia >= 75 ? 'Aprobado' : 'Reprobado';
+
+
+            document.getElementById('promedio').textContent = promedio.toFixed(2);
+            document.getElementById('estado').textContent = estado;
+
+
+            document.getElementById('formularioEjercicio1').style.display = 'none';
+            document.getElementById('resultado').style.display = 'block';
+
+
+            return false;
+        }
+        function volverAlMenu() {
+            history.back();
+        }
+
+        function agregarNuevasNotas() {
+
+            document.getElementById('formEjercicio1').reset();
+
+
+            document.getElementById('formularioEjercicio1').style.display = 'block';
+            document.getElementById('resultado').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

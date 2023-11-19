@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Ejercicio 2</h1>
+
+    <div id="formularioEjercicio2">
+        <form id="formEjercicio2" action="/submit_ejercicio2" method="post" onsubmit="return enviarFormularioEjercicio2()">
+
+            <label for="nombre1">Nombre 1:</label>
+            <input type="text" id="nombre1" name="nombre1" required><br>
+
+            <label for="nombre2">Nombre 2:</label>
+            <input type="text" id="nombre2" name="nombre2" required><br>
+
+            <label for="nombre3">Nombre 3:</label>
+            <input type="text" id="nombre3" name="nombre3" required><br>
+
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+
+    <div id="resultadoEjercicio2" style="display: none;">
+        <h2>Resultado Ejercicio 2</h2>
+        <p>Nombre con más caracteres: <span id="nombreMasLargo"></span></p>
+        <p>Cantidad de caracteres: <span id="cantidadCaracteres"></span></p>
+
+
+        <button onclick="volverAlMenu()">volver Al Menu</button>
+        <button onclick="agregarNuevosNombres()">Agregar Nuevos Nombres</button>
+    </div>
+
+    <script>
+        function enviarFormularioEjercicio2() {
+            var nombre1 = document.getElementById('nombre1').value;
+            var nombre2 = document.getElementById('nombre2').value;
+            var nombre3 = document.getElementById('nombre3').value;
+
+            var nombres = [nombre1, nombre2, nombre3];
+            var nombreMasLargo = nombres.reduce(function (a, b) {
+                return a.length > b.length ? a : b;
+            });
+
+            document.getElementById('nombreMasLargo').textContent = nombreMasLargo;
+            document.getElementById('cantidadCaracteres').textContent = nombreMasLargo.length;
+
+            document.getElementById('formularioEjercicio2').style.display = 'none';
+            document.getElementById('resultadoEjercicio2').style.display = 'block';
+
+            return false;
+        }
+
+        function volverAlMenu() {
+            history.back();
+        }
+
+        function volverAlMenuEjercicio2() {
+            document.getElementById('formularioEjercicio2').style.display = 'block';
+            document.getElementById('resultadoEjercicio2').style.display = 'none';
+        }
+
+        function agregarNuevosNombres() {
+            document.getElementById('formEjercicio2').reset();
+
+            document.getElementById('formularioEjercicio2').style.display = 'block';
+            document.getElementById('resultadoEjercicio2').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
